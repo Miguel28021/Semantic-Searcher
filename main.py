@@ -1,6 +1,8 @@
-from sentence_transformers import SentenceTransformer
-sentences = ["Cat scratch injury", "Cat scratch disease", "Bartonellosis"]
+from fileHandler import fileHandler
+from embeddingModel import EmbeddingModel
 
-model = SentenceTransformer('FremyCompany/BioLORD-2023')
-embeddings = model.encode(sentences)
-print(embeddings)
+fileH = fileHandler()
+corpus = fileH.load_file("articles.ris")
+
+embedder = EmbeddingModel("FremyCompany/BioLORD-2023",corpus)
+embedder.launch_query("How much protein")
