@@ -5,4 +5,14 @@ fileH = fileHandler()
 corpus = fileH.load_file("articles.ris")
 
 embedder = EmbeddingModel("FremyCompany/BioLORD-2023",corpus)
-embedder.launch_query("How much protein")
+
+while(1):
+    # Leer la entrada del teclado y almacenarla en una variable
+    entrada = input("Por favor, introduce algo: ")
+
+    if entrada == "fin":
+        break
+
+    embedder.launch_query(entrada)
+
+embedder.delete_DB()
