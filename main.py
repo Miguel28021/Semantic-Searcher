@@ -13,6 +13,6 @@ while(1):
     if entrada == "fin":
         break
 
-    embedder.launch_query(entrada)
+    result=embedder.launch_query(entrada)
 
 embedder.delete_DB()

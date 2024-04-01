@@ -24,7 +24,7 @@ class EmbeddingModel:
             n_results=k,
             include=["distances"]
         )
-        print(results)
+       # print(results)
         return results
     
     def delete_DB(self):
