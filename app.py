@@ -13,9 +13,9 @@ embedder = EmbeddingModel("FremyCompany/BioLORD-2023",corpus)
 def index():
     return render_template("index.html")
 
-@app.route('/procesar', methods=['POST'])
+@app.route("/enviar", methods=['POST'])
 def procesar():
-    query = request.form['texto']
+    query = request.form["texto"]
     result=embedder.launch_query(query)
     return render_template("resultado.html", texto=result)
 
