@@ -8,7 +8,7 @@ embedder = EmbeddingModel("FremyCompany/BioLORD-2023",corpus)
 
 while(1):
     # Leer la entrada del teclado y almacenarla en una variable
-    entrada = input("Por favor, introduce algo: ")
+    entrada = input("Por favor, introduce una consulta: ")
 
     if entrada == "fin":
         break
