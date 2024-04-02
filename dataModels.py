@@ -20,6 +20,6 @@ class Result(BaseModel):
         """
         Returns a string representation of the result.
         """
-        return f"Document ID: {self.id}, Category: {self.category}, Score: {self.score:.2f}\nContent: {self.content[:20]}..."
+        return f"Document ID: {self.id}, Category: {self.category}, Score: {self.score:.2f}\nContent: {self.content}"
     
  

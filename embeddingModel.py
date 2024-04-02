@@ -22,9 +22,15 @@ class EmbeddingModel:
         results = self.semanticDB.query(
             query_texts = query,
             n_results=k,
-            include=["distances"]
         )
-       # print(results)
+        
+        docs = results['metadatas'][0]
+        scores = results['distances'][0]
+
+        results = [ Result(id=doc['id'], content=doc['content'], category=doc['category'], score=scores[i] )
+        for i, doc in enumerate(docs) ]
+
+        print(results[0])
         return results
     
     def delete_DB(self):

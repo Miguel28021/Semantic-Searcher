@@ -14,10 +14,10 @@ def index():
     return render_template("index.html")
 
 @app.route("/enviar", methods=['POST'])
-def procesar():
+def enviar():
     query = request.form["texto"]
-    result=embedder.launch_query(query)
-    return render_template("resultado.html", texto=result)
+    results=embedder.launch_query(query)
+    return render_template("resultado.html", texto='<br><br>'.join(str(objeto) for objeto in results))
 
 if __name__ == "__main__":
     app.run(debug=True)
