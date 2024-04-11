@@ -30,7 +30,7 @@ class EmbeddingModel:
         results = [ Result(id=doc['id'], content=doc['content'], category=doc['category'], score=scores[i] )
         for i, doc in enumerate(docs) ]
 
-        print(results[0])
+        #print(results[0])
         return results
     
     def delete_DB(self):

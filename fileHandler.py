@@ -17,7 +17,7 @@ class fileHandler:
                 corpus.append(Doc(id=id,category=record["publication_year"][0:],content=record["abstract"][0:]))
                 id+=1
                 i+=1
-                if i == 100:
-                    break
+                if i == 10:
+                     break
 
         return corpus

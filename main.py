@@ -15,4 +15,5 @@ while(1):
 
     result=embedder.launch_query(entrada)
 
+
 embedder.delete_DB()
