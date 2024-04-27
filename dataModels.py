@@ -5,6 +5,7 @@ from pydantic import BaseModel
  
 class Doc(TypedDict):
     id:int
+    tipo: str
     title: str
     year: int
     url: str
@@ -15,6 +16,7 @@ Corpus = List[Doc]
  
 class Result(BaseModel):
     id: int
+    tipo: str
     title: str
     year: int
     url: str

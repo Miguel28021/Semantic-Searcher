@@ -1,8 +1,11 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+from streamlit_navigation_bar import st_navbar
 
-#from streamlit import session_state
+def wide_space_default():
+    st.set_page_config(layout="wide")
+
 
 @st.cache_resource(show_spinner=False)
 def load_model():
@@ -15,24 +18,44 @@ def load_model():
     model = EmbeddingModel("menadsa/BioS-MiniLM",corpus)
     return model
 
-# Mostrar un spinner mientras se carga la página
-with st.spinner('Cargando modelo'):
+wide_space_default()
+page = st_navbar(["Home", "Subir archivo","Acerca de", "Contacto"])
+col1, col2, col3 = st.columns([1,2,1])
 
-    load_model()
-    #st.success('¡Modelo cargado correctamente!')
+with col2:
+    # Mostrar un spinner mientras se carga la página
+    with st.spinner('                  Cargando modelo y liberías'):
+        load_model()
+
+
+with col3:
+    st.write("")
+    with st.expander("Filtrar por:"):
+        option = st.selectbox(
+        'Que filtro quieres aplicar?',
+        ('Tipo de publicación', 'Año', 'Fechar',"Autor"),label_visibility="hidden")
+
+        st.write('You selected:', option)
+
+#st.write(page)
+#from streamlit import session_state
+
+
+
 
 model = load_model()
 
-st.title("Buscador Semántico")
-with st.sidebar:
-    st.write("Filtros:")
-query = st.text_input("query", placeholder="Haz una pregunta de carácter científico", label_visibility="hidden")
+with col2:
+    #st.write("prueba")
+    #st.title("Buscador Semántico")
+
+    query = st.text_input("query", placeholder="Haz una pregunta de carácter científico", label_visibility="hidden")
 
 if query:
     results=model.launch_query(query,50)
 
     data = {
-        "Id": [objeto.id for objeto in results],
+        "Tipo": [objeto.tipo for objeto in results],
         "Titulo": [objeto.title for objeto in results],
         "Año": [objeto.year for objeto in results],
         "Autores": [objeto.authors for objeto in results],
@@ -48,5 +71,6 @@ if query:
     #     {"selector": "tr", "props": "line-height: 500px;"}
 
     # ])
-    st.dataframe(df,height=600,hide_index=True)#,use_container_width=True)
-
+    with col2:
+        st.dataframe(df,height=600,hide_index=True)#,use_container_width=True)
+    

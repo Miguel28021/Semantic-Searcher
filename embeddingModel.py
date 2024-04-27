@@ -29,7 +29,7 @@ class EmbeddingModel:
         sorted_docs = results['metadatas'][0]
         scores = results['distances'][0]
 
-        results = [ Result(id=doc['id'],title=doc['title'],year=doc['year'],url=doc['url'],authors=doc['authors'], abstract=doc['abstract'], score=scores[i] )
+        results = [ Result(id=doc['id'],tipo=doc['tipo'],title=doc['title'],year=doc['year'],url=doc['url'],authors=doc['authors'], abstract=doc['abstract'], score=scores[i] )
         for i, doc in enumerate(sorted_docs) ]
 
         return results
