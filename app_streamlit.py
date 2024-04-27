@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -19,7 +20,36 @@ def load_model():
     return model
 
 wide_space_default()
-page = st_navbar(["Home", "Subir archivo","Acerca de", "Contacto"])
+parent_dir = os.path.dirname(os.path.abspath(__file__))
+logo_path = os.path.join(parent_dir, "logo.svg")
+styles = {
+    "nav": {
+        "background-color": "royalblue",
+        "justify-content": "left",
+    }, "img": {
+        "padding-right": "14px",
+        "justify-content": "left",
+        
+    },
+    "div": {
+        "max-width": "32rem",
+    },
+    
+    "span": {
+        "color": "white",
+        "padding": "44px",
+    },
+    "active": {
+        "color": "var(--text-color)",
+        "background-color": "white",
+        "font-weight": "normal",
+        "padding": "44px",
+    },
+    "hover": {
+        "background-color": "rgba(255, 255, 255, 0.35)",
+    },
+}
+page = st_navbar(["Subir archivo","Acerca de", "Contacto"],logo_path=logo_path,styles=styles)
 col1, col2, col3 = st.columns([1,2,1])
 
 with col2:
@@ -36,12 +66,6 @@ with col3:
         ('Tipo de publicación', 'Año', 'Fechar',"Autor"),label_visibility="hidden")
 
         st.write('You selected:', option)
-
-#st.write(page)
-#from streamlit import session_state
-
-
-
 
 model = load_model()
 
@@ -66,11 +90,7 @@ if query:
 
     # Crear un DataFrame a partir del diccionario
     df = pd.DataFrame(data)
-    # styler = df.style
-    # styler.set_table_styles([
-    #     {"selector": "tr", "props": "line-height: 500px;"}
 
-    # ])
     with col2:
         st.dataframe(df,height=600,hide_index=True)#,use_container_width=True)
     
