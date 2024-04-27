@@ -2,7 +2,6 @@ from sentence_transformers import SentenceTransformer, util
 import chromadb
 from chromadb.utils import embedding_functions
 from dataModels import Corpus, Result
-#from utils import print_resuts
  
 class EmbeddingModel:
     def __init__(self, model_name, corpus:Corpus):
@@ -11,9 +10,12 @@ class EmbeddingModel:
         sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name=model_name)
 
         self.client = chromadb.Client()
-        self.semanticDB = self.client.create_collection(name="SemanticDB",embedding_function = sentence_transformer_ef)
+        #self.semanticDB = self.client.create_collection(name="SemanticDB",embedding_function = sentence_transformer_ef)
+        self.semanticDB = self.client.get_or_create_collection(name="SemanticDB",embedding_function = sentence_transformer_ef)
+
+
         self.semanticDB.add(
-            documents=[doc["content"] for doc in self.corpus],
+            documents=[doc["abstract"] for doc in self.corpus],
             metadatas=[doc for doc in self.corpus],
             ids=[str(doc["id"]) for doc in self.corpus]
         )    
@@ -24,16 +26,13 @@ class EmbeddingModel:
             n_results=k,
         )
         
-        docs = results['metadatas'][0]
+        sorted_docs = results['metadatas'][0]
         scores = results['distances'][0]
 
-        results = [ Result(id=doc['id'], content=doc['content'], category=doc['category'], score=scores[i] )
-        for i, doc in enumerate(docs) ]
+        results = [ Result(id=doc['id'],title=doc['title'],year=doc['year'],url=doc['url'],authors=doc['authors'], abstract=doc['abstract'], score=scores[i] )
+        for i, doc in enumerate(sorted_docs) ]
 
-        #print(results[0])
         return results
     
-    def delete_DB(self):
-        self.client.delete_collection("SemanticDB")
     
 

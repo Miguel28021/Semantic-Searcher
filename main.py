@@ -1,5 +1,6 @@
 from fileHandler import fileHandler
 from embeddingModel import EmbeddingModel
+import chromadb
 
 fileH = fileHandler()
 corpus = fileH.load_file("articles.ris")
@@ -16,4 +17,6 @@ while(1):
     result=embedder.launch_query(entrada)
 
 
-embedder.delete_DB()
+# client = chromadb.Client()
+# list=client.list_collections()
+# print(list)
