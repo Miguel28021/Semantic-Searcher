@@ -7,8 +7,10 @@ class fileHandler:
         pass
 
     def load_file(self,file_path):
+        
 
-        records = rispy.load(open(file_path, 'r',encoding="utf8"))
+        #records = rispy.load(open(file_path, 'r',encoding="utf8"))
+        records = rispy.loads(file_path)
         corpus: Corpus = []
         id = 0
         i=0
