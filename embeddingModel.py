@@ -20,7 +20,10 @@ class EmbeddingModel:
             ids=[str(doc["id"]) for doc in self.corpus]
         )    
     
-    def launch_query(self, query, k=5):
+    def launch_query(self, query,filter_type,filter, k=5):
+        # print(filter_type)
+        # print(filter)
+
         results = self.semanticDB.query(
             query_texts = query,
             n_results=k,

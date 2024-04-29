@@ -1,12 +1,17 @@
-import os
 import streamlit as st
-from streamlit_navigation_bar import st_navbar
-import pages as pg
+
 
 def wide_space_default():
-    st.set_page_config(layout="wide",initial_sidebar_state="collapsed")
+    st.set_page_config(initial_sidebar_state="collapsed",layout="wide")
 
 wide_space_default()
+st.empty()
+
+import os
+from streamlit_navigation_bar import st_navbar
+import st_pages as pg
+
+
 parent_dir = os.path.dirname(os.path.abspath(__file__))
 logo_path = os.path.join(parent_dir, "logo.svg")
 styles = {
@@ -24,7 +29,7 @@ styles = {
     
     "span": {
         "color": "white",
-        "padding": "44px",
+        "padding": "14px",
     },
     "active": {
         "color": "var(--text-color)",

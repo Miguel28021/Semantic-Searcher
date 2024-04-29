@@ -6,11 +6,18 @@ class fileHandler:
     def __init__(self):
         pass
 
-    def load_file(self,file_path):
+    def load_file(self,file):
         
-
-        #records = rispy.load(open(file_path, 'r',encoding="utf8"))
-        records = rispy.loads(file_path)
+        print(file)
+        if isinstance(file, str):
+            print("La variable es una cadena de texto")
+            records = rispy.load(open(file, 'r',encoding="utf8"))
+        else:
+            print("La variable no es una cadena de texto")
+            contenido_ris=file.getvalue().decode("utf-8") 
+            records = rispy.loads(contenido_ris)
+        
+        
         corpus: Corpus = []
         id = 0
         i=0
@@ -31,7 +38,7 @@ class fileHandler:
 
                 id+=1
                 i+=1
-                if i == 200:
-                    break
+                # if i == 50:
+                #     break
 
         return corpus
