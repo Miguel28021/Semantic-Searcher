@@ -8,11 +8,13 @@ class EmbeddingModel:
         self.model = SentenceTransformer(model_name)
         self.corpus = corpus
         sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name=model_name)
-
+        # binary_embeddings = self.model.encode(
+        #     [doc["abstract"] for doc in self.corpus],
+        #     precision="binary",
+        # )
         self.client = chromadb.Client()
         #self.semanticDB = self.client.create_collection(name="SemanticDB",embedding_function = sentence_transformer_ef)
         self.semanticDB = self.client.get_or_create_collection(name="SemanticDB",embedding_function = sentence_transformer_ef)
-
 
         self.semanticDB.add(
             documents=[doc["abstract"] for doc in self.corpus],

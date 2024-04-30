@@ -1,4 +1,12 @@
 import rispy
+import sys
+import os.path
+
+
+m_dir = (os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
++ '/models/')
+print(m_dir)
+sys.path.append(m_dir)
 from dataModels import Corpus,Doc
 
 class fileHandler:
@@ -9,7 +17,9 @@ class fileHandler:
     def load_file(self,file):
         
         if isinstance(file, str):
-            records = rispy.load(open(file, 'r',encoding="utf8"))
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            articles_file = os.path.join(script_dir, 'articles.ris')
+            records = rispy.load(open(articles_file, 'r',encoding="utf8"))
         else:
             contenido_ris=file.getvalue().decode("utf-8") 
             records = rispy.loads(contenido_ris)

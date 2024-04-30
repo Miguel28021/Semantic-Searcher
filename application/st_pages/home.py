@@ -1,17 +1,25 @@
 import streamlit as st
 import pandas as pd
+
+import sys
+import os
+
+fh_dir = (os.path.abspath(os.path.join(os.path.join(os.path.dirname(__file__), '..'),'..'))
++ '/fileHandling/')
+em_dir = (os.path.abspath(os.path.join(os.path.join(os.path.dirname(__file__), '..'),'..'))+ '/embeddings/')
+sys.path.append(fh_dir)
+sys.path.append(em_dir)
+
 from fileHandler import fileHandler
 from embeddingModel import EmbeddingModel
 
-@st.cache_resource(show_spinner=False)
-def load_model(file):
-    print("CARGANDO LIBRERIAS")
 
+@st.cache_resource(show_spinner=False)
+def load_model(file,model):
+    print("CARGANDO LIBRERIAS")
     fileH = fileHandler()
     corpus = fileH.load_file(file)
-    #model = EmbeddingModel("FremyCompany/BioLORD-2023",corpus)
-    model = EmbeddingModel("menadsa/BioS-MiniLM",corpus)
-    return model
+    return EmbeddingModel(model,corpus)
     
 def show_data(results,col2):
     data = {
@@ -68,9 +76,9 @@ def show_home():
             var2.empty()
             with st.spinner('Cargando modelo'):
                if st.session_state["uploaded_file"]:            
-                    model=load_model(st.session_state["uploaded_file"])
+                    model=load_model(st.session_state["uploaded_file"],"menadsa/BioS-MiniLM")
                else:
-                    model=load_model("articles.ris")
+                    model=load_model("articles.ris","menadsa/BioS-MiniLM")
 
             with col2:
                 query = st.text_input("query", placeholder="Formula una pregunta de investigación", label_visibility="hidden")
@@ -131,6 +139,20 @@ def show_home():
                     results=model.launch_query(query,st.session_state['filter_type'],st.session_state['filter'],50)
                     
                 show_data(results,col2)
+
+            with col1:
+                st.write("")
+                selected_model = st.selectbox("Modelo usado",("BioS-MiniLM","BioLORD-2023","S-BioELECTRA"))
+                if selected_model == "BioS-MiniLM":
+                    model = load_model("articles.ris","menadsa/BioS-MiniLM")
+                #elif selected_model == "BioLORD-2023":     
+                    #model = load_model("articles.ris","FremyCompany/BioLORD-2023")
+                #elif selected_model == "S-BioELECTRA":
+                    #model = load_model("articles.ris","menadsa/S-BioELECTRA")
+
+
+
+
 
                         
 
