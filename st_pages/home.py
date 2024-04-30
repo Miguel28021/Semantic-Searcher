@@ -13,12 +13,33 @@ def load_model(file):
     model = EmbeddingModel("menadsa/BioS-MiniLM",corpus)
     return model
     
+def show_data(results,col2):
+    data = {
+        "Score": [objeto.score for objeto in results],
+        "Tipo": [objeto.type for objeto in results],
+        "Titulo": [objeto.title for objeto in results],
+        "Año": [objeto.year for objeto in results],
+        "Autores": [objeto.authors for objeto in results],
+        "URL": [objeto.url for objeto in results],
+        "Abstract": [objeto.abstract for objeto in results]
+        }
+    pd.set_option('display.max_colwidth', None)
+
+    df = pd.DataFrame(data)
+
+    with col2:
+        st.dataframe(df,height=600,hide_index=True)  
+
 def show_home():
     st.empty()
 
     if 'uploaded' not in st.session_state:
         st.session_state['uploaded'] = False
         st.session_state["file"] = ""
+        st.session_state['aplicar_filtro'] = False
+        st.session_state['filter'] = ""
+        st.session_state['filter_type'] = ""
+
         
     col1, col2, col3 = st.columns([1,2,1])
     
@@ -73,48 +94,45 @@ def show_home():
                         filter = st.text_input("¿Cual es el titulo de la publicación?")
                     elif filter_type == "Autor":
                         filter = st.text_input("¿Cual es el autor de la publicación?")
-
+                    else:
+                        filter = ""
+                        st.session_state['aplicar_filtro'] = False
+                        
                     if st.button("Aplicar"):
                         #Comprobación de parametros
                         if filter_type == "Año":
                             if not fecha_inicio.isdigit() or not fecha_final.isdigit():
                                 st.write("Las fechas deben ser numeros positivos")
                             else:
-                                fecha_inicio=int(fecha_inicio)
-                                fecha_final=int(fecha_final)
-                                if fecha_inicio > fecha_final:
+                                if int(fecha_inicio) > int(fecha_final):
                                     st.write("La fecha inicial no puede ser mayor que la final")
                                 else:
-                                    #APLICACION DE FILTRO
                                     if query:
-                                        st.write("Se aplica filtro")
+                                        st.session_state['aplicar_filtro'] = True
+                                        st.session_state['filter'] = fecha_inicio + "-" + fecha_final
+                                        st.session_state['filter_type'] = filter_type
                                     else:
                                         st.write("Debes introducir una pregunta antes de aplicar el filtro")
                         elif filter:
                             if query:
-                                st.write("Se aplica filtro")
+                                st.session_state['aplicar_filtro'] = True
+                                st.session_state['filter'] = filter
+                                st.session_state['filter_type'] = filter_type
                             else:
                                 st.write("Debes introducir una pregunta antes de aplicar el filtro")
-
+                    
             if query:
 
-                results=model.launch_query(query,0,"",50)
+                if  st.session_state['aplicar_filtro'] == False:
+                    st.write("No se aplica ningun filtro")
+                    results=model.launch_query(query,"","",50)
+                else:
+                    st.write("Se aplica el filtro de " + st.session_state['filter_type'] + " = " + st.session_state['filter'])
+                    results=model.launch_query(query,st.session_state['filter_type'],st.session_state['filter'],50)
+                    
+                show_data(results,col2)
 
-                data = {
-                    "Score": [objeto.score for objeto in results],
-                    "Tipo": [objeto.tipo for objeto in results],
-                    "Titulo": [objeto.title for objeto in results],
-                    "Año": [objeto.year for objeto in results],
-                    "Autores": [objeto.authors for objeto in results],
-                    "URL": [objeto.url for objeto in results],
-                    "Abstract": [objeto.abstract for objeto in results]
-                }
-                pd.set_option('display.max_colwidth', None)
-
-                df = pd.DataFrame(data)
-
-                with col2:
-                    st.dataframe(df,height=600,hide_index=True)          
+                        
 
                 
                 
