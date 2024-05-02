@@ -5,12 +5,17 @@ This project consists of a search engine specialized in carrying out semantic se
 
 # Installation 
 
-To use the application, first you need to have python installed on your computer, as well as all of the dependencies listed on the `requirements.txt file`. For the latter, you can use the following command:
+To use the application, you need to have python installed on your computer, as well as all of the dependencies listed on the `requirements.txt` file. For the latter, you can use the following command:
 
 `pip install -r requirements.txt`
 
-
 # Usage
+
+Once all of the dependencies required by the project have been installed, you can execute it by positioning yourself in the `application` folder and typing the following command:
+
+`streamlit run .\app_streamlit.py`
+
+This will launch the Semantic Searcher website in localhost:8501
 
 # License
 
