@@ -5,6 +5,10 @@ This project consists of a search engine specialized in carrying out semantic se
 
 # Installation 
 
+To use the application, first you need to have python installed on your computer, as well as all of the dependencies listed on the `requirements.txt file`. For the latter, you can use the following command:
+`pip install -r requirements.txt`
+
+
 # Usage
 
 # License
