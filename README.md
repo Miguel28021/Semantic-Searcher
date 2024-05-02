@@ -29,4 +29,4 @@ This will launch the Semantic Searcher website in localhost:8501
 
 # Contact
 
-If you have any questions or suggestions regarding the proyect you can reach me at (mailto:malomaosorio@gmail.com)
+If you have any questions or suggestions regarding the proyect you can reach me at malomaosorio@gmail.com
