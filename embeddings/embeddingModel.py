@@ -1,7 +1,7 @@
 from sentence_transformers import SentenceTransformer, util
 import chromadb
 from chromadb.utils import embedding_functions
-from dataModels import Corpus, Result
+from dataModels import Corpus, Result  # type: ignore
  
 class EmbeddingModel:
     def __init__(self, model_name, corpus:Corpus):

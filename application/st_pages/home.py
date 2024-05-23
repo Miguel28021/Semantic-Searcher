@@ -10,8 +10,8 @@ em_dir = (os.path.abspath(os.path.join(os.path.join(os.path.dirname(__file__), '
 sys.path.append(fh_dir)
 sys.path.append(em_dir)
 
-from fileHandler import fileHandler
-from embeddingModel import EmbeddingModel
+from fileHandler import fileHandler # type: ignore
+from embeddingModel import EmbeddingModel # type: ignore
 
 
 @st.cache_resource(show_spinner=False)
