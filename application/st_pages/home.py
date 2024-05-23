@@ -16,7 +16,6 @@ from embeddingModel import EmbeddingModel
 
 @st.cache_resource(show_spinner=False)
 def load_model(file,model):
-    print("CARGANDO LIBRERIAS")
     fileH = fileHandler()
     corpus = fileH.load_file(file)
     return EmbeddingModel(model,corpus)
@@ -42,6 +41,8 @@ def show_home():
     st.empty()
 
     if 'uploaded' not in st.session_state:
+        st.session_state['loaded'] = False
+        st.session_state["model"] = ""
         st.session_state['uploaded'] = False
         st.session_state["file"] = ""
         st.session_state['aplicar_filtro'] = False
@@ -52,15 +53,13 @@ def show_home():
     col1, col2, col3 = st.columns([1,2,1])
     
     with col2:
-        #var2.button("Utilizar fichero articles.ris")
-        #uploaded_file = var1.file_uploader("Sube tu propio archivo .ris",type=".ris")  
-
-        #Mostrar un spinner mientras se carga la página
         
         var1 = st.empty()
         var2 = st.empty()
-            
-        if st.session_state['uploaded'] == False:
+        var3 = st.empty()
+        var4 = st.empty()
+
+        if st.session_state['loaded'] == False:
 
             if var1.button("Utilizar fichero articles.ris"):
                 st.session_state['uploaded'] = True
@@ -69,16 +68,33 @@ def show_home():
 
             if  st.session_state["uploaded_file"] :
                 st.session_state['uploaded'] = True               
-                
+            
+            if st.session_state['uploaded'] == True:
+                var1.empty()
+                var2.empty()
 
-        if st.session_state['uploaded'] == True:
-            var1.empty()
-            var2.empty()
-            with st.spinner('Cargando modelo'):
+                with col2:
+                    selected_model = var3.selectbox("Seleccion de modelo:",("BioS-MiniLM","BioLORD-2023","S-BioELECTRA"))
+                    if selected_model == "BioS-MiniLM":
+                        st.session_state["model"] = "menadsa/BioS-MiniLM"
+                    elif selected_model == "BioLORD-2023":     
+                        st.session_state["model"] = "FremyCompany/BioLORD-2023"
+                    elif selected_model == "S-BioELECTRA":
+                        st.session_state["model"] = "menadsa/S-BioELECTRA"
+
+                if var4.button("Cargar"):
+                    st.session_state['loaded']=True
+
+        if st.session_state['loaded'] == True:
+
+            var3.empty()
+            var4.empty()
+
+            with st.spinner('Cargando modelo ' + st.session_state["model"]):
                if st.session_state["uploaded_file"]:            
-                    model=load_model(st.session_state["uploaded_file"],"menadsa/BioS-MiniLM")
+                    model=load_model(st.session_state["uploaded_file"],st.session_state["model"])
                else:
-                    model=load_model("articles.ris","menadsa/BioS-MiniLM")
+                    model=load_model("articles.ris",st.session_state["model"])
 
             with col2:
                 query = st.text_input("query", placeholder="Formula una pregunta de investigación", label_visibility="hidden")
@@ -132,25 +148,13 @@ def show_home():
             if query:
 
                 if  st.session_state['aplicar_filtro'] == False:
-                    st.write("No se aplica ningun filtro")
+                  #  st.write("No se aplica ningun filtro")
                     results=model.launch_query(query,"","",50)
                 else:
-                    st.write("Se aplica el filtro de " + st.session_state['filter_type'] + " = " + st.session_state['filter'])
+                   # st.write("Se aplica el filtro de " + st.session_state['filter_type'] + " = " + st.session_state['filter'])
                     results=model.launch_query(query,st.session_state['filter_type'],st.session_state['filter'],50)
                     
                 show_data(results,col2)
-
-            with col1:
-                st.write("")
-                selected_model = st.selectbox("Modelo usado",("BioS-MiniLM","BioLORD-2023","S-BioELECTRA"))
-                if selected_model == "BioS-MiniLM":
-                    model = load_model("articles.ris","menadsa/BioS-MiniLM")
-                #elif selected_model == "BioLORD-2023":     
-                    #model = load_model("articles.ris","FremyCompany/BioLORD-2023")
-                #elif selected_model == "S-BioELECTRA":
-                    #model = load_model("articles.ris","menadsa/S-BioELECTRA")
-
-
 
 
 

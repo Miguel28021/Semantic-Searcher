@@ -27,7 +27,7 @@ class EmbeddingModel:
         # print(filter)
         query_results = self.semanticDB.query(
             query_texts = query,
-            n_results=1000,
+            n_results=10,
         )
         
         sorted_docs = query_results['metadatas'][0]
