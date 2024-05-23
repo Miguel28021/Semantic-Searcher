@@ -7,7 +7,7 @@ m_dir = (os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 + '/models/')
 print(m_dir)
 sys.path.append(m_dir)
-from dataModels import Corpus,Doc
+from dataModels import Corpus,Doc # type: ignore
 
 class fileHandler:
 
