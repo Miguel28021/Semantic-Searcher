@@ -20,13 +20,13 @@ Once all of the dependencies required by the project have been installed, you ca
 
 `streamlit run .\app_streamlit.py`
 
-This will launch the Semantic Searcher website in localhost:8501
+This will launch the Semantic Searcher website in localhost:8501.
 
 #Poner fotos de la aplicación una vez esté terminada
 
 # License
 
-#Aquí no se que poner
+The Semantic-Searcher application is licensed under the GNU General Public License v3.0.
 
 # Contact
 
