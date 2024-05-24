@@ -27,7 +27,7 @@ class EmbeddingModel:
         # print(filter)
         query_results = self.semanticDB.query(
             query_texts = query,
-            n_results=10,
+            n_results=1000,
         )
         
         sorted_docs = query_results['metadatas'][0]
@@ -38,27 +38,27 @@ class EmbeddingModel:
             if filter_type == "" :
                 results.append(Result(id=doc['id'],type=doc['type'],title=doc['title'],year=doc['year'],url=doc['url'],authors=doc['authors'], abstract=doc['abstract'], score=scores[i]))
             
-            elif filter_type == "Tipo de publicación":
+            elif filter_type == "Tiype of article":
 
-                if filter == "Artículo de Revista" and doc['type'] == "JOUR": 
+                if filter == "Journal" and doc['type'] == "JOUR": 
                     results.append(Result(id=doc['id'],type=doc['type'],title=doc['title'],year=doc['year'],url=doc['url'],authors=doc['authors'], abstract=doc['abstract'], score=scores[i]))
-                elif filter == "Libro" and doc['type'] == "BOOK": 
+                elif filter == "Book" and doc['type'] == "BOOK": 
                     results.append(Result(id=doc['id'],type=doc['type'],title=doc['title'],year=doc['year'],url=doc['url'],authors=doc['authors'], abstract=doc['abstract'], score=scores[i]))
-                elif filter == "Sección de Libro" and doc['type'] == "CHAP": 
+                elif filter == "Book chapter" and doc['type'] == "CHAP": 
                     results.append(Result(id=doc['id'],type=doc['type'],title=doc['title'],year=doc['year'],url=doc['url'],authors=doc['authors'], abstract=doc['abstract'], score=scores[i]))
-                elif filter == "Actas de Conferencia" and doc['type'] == "CONF": 
+                elif filter == "Conference proceedings" and doc['type'] == "CONF": 
                     results.append(Result(id=doc['id'],type=doc['type'],title=doc['title'],year=doc['year'],url=doc['url'],authors=doc['authors'], abstract=doc['abstract'], score=scores[i]))
             
-            elif filter_type == "Año":
+            elif filter_type == "Year":
                 fecha_inicio, fecha_final = map(int, filter.split('-'))
                 if int(doc["year"]) >= fecha_inicio and int(doc["year"]) <= fecha_final:
                     results.append(Result(id=doc['id'],type=doc['type'],title=doc['title'],year=doc['year'],url=doc['url'],authors=doc['authors'], abstract=doc['abstract'], score=scores[i]))
                 
-            elif filter_type == "Titulo":
+            elif filter_type == "Title":
                 if filter.lower() in doc['title'].lower():
                     results.append(Result(id=doc['id'],type=doc['type'],title=doc['title'],year=doc['year'],url=doc['url'],authors=doc['authors'], abstract=doc['abstract'], score=scores[i]))
 
-            elif filter_type == "Autor":
+            elif filter_type == "Author":
                 if filter.lower() in doc['authors'].lower():
                     results.append(Result(id=doc['id'],type=doc['type'],title=doc['title'],year=doc['year'],url=doc['url'],authors=doc['authors'], abstract=doc['abstract'], score=scores[i]))
 

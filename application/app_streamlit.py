@@ -45,12 +45,12 @@ options = {
     "show_menu": True,
     "show_sidebar": False,
 }
-page = st_navbar(["Acerca de", "Contacto"],logo_path=logo_path,options=options,styles=styles)
+page = st_navbar(["About", "Contact"],logo_path=logo_path,options=options,styles=styles)
 
 functions = {
     "Home": pg.show_home,
-    "Acerca de": pg.show_about,
-    "Contacto": pg.show_contact,
+    "About": pg.show_about,
+    "Contact": pg.show_contact,
 }
 go_to = functions.get(page)
 if go_to:
