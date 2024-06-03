@@ -22,12 +22,5 @@ class Result(BaseModel):
     url: str
     authors: str
     abstract: str
-    score: float
- 
-    # def __str__(self):
-    #     """
-    #     Returns a string representation of the result.
-    #     """
-    #     return f"Document ID: {self.id}, Category: {self.category}, Score: {self.score:.2f}\nContent: {self.content}"
+    distance: float
     
- 

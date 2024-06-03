@@ -26,7 +26,6 @@ class fileHandler:
         
         corpus: Corpus = []
         id = 0
-        i=0
         for record in records:
             if "abstract" in record.keys():
                 if("authors" in record.keys()):
@@ -43,7 +42,5 @@ class fileHandler:
                 corpus.append(Doc(id=id,title=record["title"][0:],type=record["type_of_reference"][0:],year=record["publication_year"][0:],url=urls,authors=authors,abstract=record["abstract"][0:]))              
 
                 id+=1
-                if id == 1000:
-                    break
 
         return corpus

@@ -22,7 +22,7 @@ def load_model(file,model):
     
 def show_data(results,col2):
     data = {
-        "Score": [objeto.score for objeto in results],
+        "Distance": [objeto.distance for objeto in results],
         "Type": [objeto.type for objeto in results],
         "Title": [objeto.title for objeto in results],
         "Year": [objeto.year for objeto in results],
@@ -104,9 +104,9 @@ def show_home():
                 with st.expander("Filter by:"):
                     filter_type = st.selectbox(
                     "What filter do you want to apply?",
-                    ("","Tiype of article", "Year", "Title","Author"),label_visibility="hidden")
+                    ("","Type of article", "Year", "Title","Author"),label_visibility="hidden")
 
-                    if filter_type == "Tiype of article":
+                    if filter_type == "Type of article":
                         filter = st.selectbox(
                         "What type of article are you looking for?",
                         ("Journal","Book", "Book chapter", "Conference proceedings"))
@@ -148,9 +148,9 @@ def show_home():
             if query:
 
                 if  st.session_state['apply_filter'] == False:
-                    results=model.launch_query(query,"","",50)
+                    results=model.launch_query(query,"","",100)
                 else:
-                    results=model.launch_query(query,st.session_state['filter_type'],st.session_state['filter'],50)
+                    results=model.launch_query(query,st.session_state['filter_type'],st.session_state['filter'],100)
                     
                 show_data(results,col2)
 
