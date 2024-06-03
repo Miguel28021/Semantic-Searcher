@@ -27,8 +27,10 @@ First you need to select your own ris file or use the default file: "Articles.ri
 
 Now you need to select which one of the three models available the system is going to use to generate the embeddings. After this the sytem loads the model and generates the embeddings of the documents. Keep in mind that this process takes its time (especially if you choose BioLORD-2023 and S-BioELECTRA, due to the higher dimensions of the embeddings).
 
+
 Now you can write a query and the application will show the 100 most relevant documents. Additionally, you can filter these documents by type of article, year, title and author.
 
+![Captura de pantalla 2024-06-03 202713](https://github.com/Miguel28021/Semantic-Searcher/assets/128999129/6ea5ad6b-edcf-43f6-96f8-40e085f8ce2c)
 # License
 
 The Semantic-Searcher application is licensed under the GNU General Public License v3.0.
