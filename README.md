@@ -22,7 +22,12 @@ Once all of the dependencies required by the project have been installed, you ca
 
 This will launch the Semantic Searcher website in localhost:8501.
 
-#Poner fotos de la aplicación una vez esté terminada
+First you need to select your own ris file or use the default file: "Articles.ris", which contains over 2000 articles from the drug repurposing field.
+
+
+Now you need to select which one of the three models available the system is going to use to generate the embeddings. After this the sytem loads the model and generates the embeddings of the documents. Keep in mind that this process takes its time (especially if you choose BioLORD-2023 and S-BioELECTRA, due to the higher dimensions of the embeddings).
+
+Now you can write a query and the application will show the 100 most relevant documents. Additionally, you can filter these documents by type of article, year, title and author.
 
 # License
 
