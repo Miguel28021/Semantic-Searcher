@@ -12,21 +12,24 @@ To use the application, you need to have python installed on your computer, as w
 
 `pip install -r requirements.txt`
 
-#Falta probar si hace falta algo más
-
 # Usage
 
 Once all of the dependencies required by the project have been installed, you can execute it by positioning yourself in the `application` folder and typing the following command:
 
 `streamlit run .\app_streamlit.py`
 
-This will launch the Semantic Searcher website in localhost:8501.
+This will launch the Semantic Searcher website in localhost:8501:
 
-First you need to select your own ris file or use the default file: "Articles.ris", which contains over 2000 articles from the drug repurposing field.
+First you need to select your own ris file or use the default file "Articles.ris", which contains over 2000 articles from the drug repurposing field.
 
 
-Now you need to select which one of the three models available the system is going to use to generate the embeddings. After this the sytem loads the model and generates the embeddings of the documents. Keep in mind that this process takes its time (especially if you choose BioLORD-2023 and S-BioELECTRA, due to the higher dimensions of the embeddings).
+![Captura de pantalla 2024-06-03 202853](https://github.com/Miguel28021/Semantic-Searcher/assets/128999129/f2f108a3-85f2-4df0-a47d-f66f19a5eb0b)
 
+
+
+Now you need to select which one of the three models available the system is going to use to generate the embeddings. After this, the sytem loads the model and generates the embeddings of the documents. Keep in mind that this process takes its time (especially if you choose BioLORD-2023 and S-BioELECTRA, due to the higher dimensions of the embeddings).
+
+![image](https://github.com/Miguel28021/Semantic-Searcher/assets/128999129/44bd8f6d-3def-4e96-bdec-bad88a4f2437)
 
 Now you can write a query and the application will show the 100 most relevant documents. Additionally, you can filter these documents by type of article, year, title and author.
 
